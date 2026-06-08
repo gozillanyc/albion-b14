@@ -60,9 +60,9 @@
   .comp-stats span{white-space:nowrap}
 
   /* GAMES TABLE */
-  .game-table{width:100%;border-collapse:collapse;font-size:12px}
-  .game-table th{text-align:left;padding:5px 10px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.06)}
-  .game-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .game-table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+  .game-table th{text-align:left;padding:5px 10px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.06)}.game-table th:nth-child(1){width:90px}.game-table th:nth-child(2){width:auto}.game-table th:nth-child(3){width:60px;text-align:center}.game-table th:nth-child(4){width:58px;text-align:center}.game-table th:nth-child(5){width:32px}
+  .game-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.04);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.game-table td:nth-child(3){text-align:center}.game-table td:nth-child(4){text-align:center}
   .game-table tr:last-child td{border-bottom:none}
   .game-table tr:hover td{background:rgba(255,255,255,0.03)}
   .score{font-weight:600;color:var(--cream)}
@@ -86,9 +86,9 @@
 
   /* ALL TABLE */
   .all-table-wrap{overflow-x:auto}
-  .all-table{width:100%;border-collapse:collapse;font-size:12px}
-  .all-table th{text-align:left;padding:6px 8px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,0.25);white-space:nowrap}
-  .all-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .all-table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+  .all-table th{text-align:left;padding:6px 8px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,0.25);white-space:nowrap}.all-table th:nth-child(1){width:90px}.all-table th:nth-child(2){width:auto}.all-table th:nth-child(3){width:60px;text-align:center}.all-table th:nth-child(4){width:58px;text-align:center}.all-table th:nth-child(5){width:140px}.all-table th:nth-child(6){width:32px}
+  .all-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.all-table td:nth-child(3){text-align:center}.all-table td:nth-child(4){text-align:center}
   .all-table tr:hover td{background:rgba(255,255,255,0.03)}
   .comp-tag{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,0.08);color:var(--muted);white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
 
