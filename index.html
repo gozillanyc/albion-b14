@@ -18,11 +18,11 @@
   
   .team-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em;color:var(--gold);line-height:1}
   .team-sub{font-size:13px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
-  .stats-row{display:grid;grid-template-columns:repeat(9,1fr);gap:5px;margin-bottom:0}
-  .stat{background:rgba(255,255,255,0.07);border-radius:6px;padding:5px 3px;text-align:center}
-  .stat-lbl{font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase}
+  .stats-row{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin-bottom:0}
+  .stat{background:#0e2444;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 4px;text-align:center;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+  .stat-lbl{font-size:11px;color:#c0d4e8;letter-spacing:0.08em;text-transform:uppercase;font-weight:500}
   .stat-val{font-size:20px;font-family:'Bebas Neue',sans-serif;line-height:1.1}
-  .stat-pct{font-size:11px;color:var(--muted);margin-top:1px}
+  .stat-pct{font-size:11px;color:#a0bcd0;margin-top:1px}
   .tabs{display:flex;border-bottom:1px solid rgba(201,168,76,0.25);overflow-x:auto}
   .tab{padding:10px 18px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.15s}
   .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
@@ -34,7 +34,7 @@
   .season-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:12px;overflow:hidden}
   .season-header{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 14px;cursor:pointer;background:rgba(255,255,255,0.03)}
   .season-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:var(--gold2)}
-  .season-meta{font-size:13px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:8px}
+  .season-meta{font-size:13px;color:#b8cfe0;margin-top:3px;display:flex;flex-wrap:wrap;gap:8px}
   .season-meta span{white-space:nowrap}
   .season-pills{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
   .pill{font-size:12px;font-weight:600;padding:3px 8px;border-radius:3px}
@@ -56,19 +56,19 @@
   .comp-section{margin:0 0 4px}
   .comp-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px 4px;flex-wrap:wrap;gap:4px}
   .comp-name{font-size:13px;color:var(--gold);letter-spacing:0.05em;text-transform:uppercase;font-weight:600}
-  .comp-stats{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+  .comp-stats{font-size:12px;color:#b8cfe0;display:flex;gap:10px;flex-wrap:wrap}
   .comp-stats span{white-space:nowrap}
 
   /* GAMES TABLE */
   .game-table{width:100%;border-collapse:collapse;font-size:15px;table-layout:fixed}
-  .game-table th{text-align:left;padding:6px 10px;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.06)}.game-table th:nth-child(1){width:100px}.game-table th:nth-child(2){width:220px}.game-table th:nth-child(3){width:75px;text-align:center}.game-table th:nth-child(4){width:70px;text-align:center}.game-table th:nth-child(5){width:28px}
+  .game-table th{text-align:left;padding:6px 10px;font-size:12px;color:#c0d4e8;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1)}.game-table th:nth-child(1){width:100px}.game-table th:nth-child(2){width:220px}.game-table th:nth-child(3){width:75px;text-align:center}.game-table th:nth-child(4){width:70px;text-align:center}.game-table th:nth-child(5){width:28px}
   .game-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.04);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.game-table td:nth-child(3){text-align:center}.game-table td:nth-child(4){text-align:center}
   .game-table tr:last-child td{border-bottom:none}
   .game-table tr:hover td{background:rgba(255,255,255,0.03)}
-  .score{font-weight:600;color:var(--cream)}
+  .score{font-weight:700;color:#ffffff}
   .date-cell{color:#ffffff;white-space:nowrap;font-size:13px}
-  .opp-cell{color:var(--cream)}
-  .loc-badge{font-size:11px;padding:2px 6px;border-radius:2px;background:rgba(255,255,255,0.08);color:var(--muted)}
+  .opp-cell{color:#ffffff}
+  .loc-badge{font-size:11px;padding:2px 6px;border-radius:2px;background:rgba(255,255,255,0.12);color:#c0d4e8}
   .res-badge{font-size:12px;font-weight:700;padding:3px 9px;border-radius:3px}
   .res-W{background:var(--win-bg);color:var(--win)}
   .res-L{background:var(--loss-bg);color:var(--loss)}
@@ -78,25 +78,25 @@
 
   /* FILTER BAR */
   .filter-bar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
-  .filt-btn{padding:6px 14px;font-size:13px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:var(--muted);cursor:pointer;transition:all 0.15s}
+  .filt-btn{padding:6px 14px;font-size:13px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#c0d4e8;cursor:pointer;transition:all 0.15s}
   .filt-btn.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
   .comp-sel{font-size:12px;padding:5px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:var(--cream);flex:1;min-width:0;max-width:220px}
   .comp-sel option{background:var(--navy2)}
-  .count-note{font-size:13px;color:var(--muted);margin-left:auto}
+  .count-note{font-size:13px;color:#b8cfe0;margin-left:auto}
 
   /* ALL TABLE */
   .all-table-wrap{overflow-x:auto}
   .all-table{width:100%;border-collapse:collapse;font-size:15px;table-layout:fixed}
-  .all-table th{text-align:left;padding:6px 8px;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,0.25);white-space:nowrap}.all-table th:nth-child(1){width:100px}.all-table th:nth-child(2){width:200px}.all-table th:nth-child(3){width:75px;text-align:center}.all-table th:nth-child(4){width:70px;text-align:center}.all-table th:nth-child(5){width:160px}.all-table th:nth-child(6){width:28px}
+  .all-table th{text-align:left;padding:6px 8px;font-size:12px;color:#c0d4e8;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,0.35);white-space:nowrap}.all-table th:nth-child(1){width:100px}.all-table th:nth-child(2){width:200px}.all-table th:nth-child(3){width:75px;text-align:center}.all-table th:nth-child(4){width:70px;text-align:center}.all-table th:nth-child(5){width:160px}.all-table th:nth-child(6){width:28px}
   .all-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.all-table td:nth-child(3){text-align:center}.all-table td:nth-child(4){text-align:center}
   .all-table tr:hover td{background:rgba(255,255,255,0.03)}
-  .comp-tag{font-size:12px;padding:2px 7px;border-radius:3px;background:rgba(255,255,255,0.08);color:#ffffff;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
+  .comp-tag{font-size:12px;padding:2px 7px;color:#c0d4e8!important;border-radius:3px;background:rgba(255,255,255,0.08);color:#ffffff;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
 
   /* ADD FORM */
   .add-form{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:1rem;margin-bottom:12px}
   .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
   .form-grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px}
-  .field-lbl{font-size:13px;color:var(--muted);margin-bottom:3px;display:block}
+  .field-lbl{font-size:13px;color:#c0d4e8;margin-bottom:3px;display:block}
   .field-inp{width:100%;padding:8px 10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:var(--cream);font-size:15px;font-family:'DM Sans',sans-serif}
   .field-inp:focus{outline:none;border-color:var(--gold)}
   .field-inp option{background:var(--navy2)}
