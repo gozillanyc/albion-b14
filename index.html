@@ -7,93 +7,113 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --navy: #0b1f3a;
-    --navy2: #122647;
-    --navy3: #1a3260;
-    --gold: #c9a84c;
-    --gold2: #e8c96a;
-    --cream: #e8e0d0;
-    --muted: #7a9abf;
-    --win: #4ade80;
-    --loss: #f87171;
-    --draw: #fbbf24;
-    --win-bg: rgba(74,222,128,0.12);
-    --loss-bg: rgba(248,113,113,0.12);
-    --draw-bg: rgba(251,191,36,0.12);
+    --navy:#0b1f3a;--navy2:#122647;--gold:#c9a84c;--gold2:#e8c96a;--cream:#e8e0d0;--muted:#7a9abf;
+    --win:#4ade80;--loss:#f87171;--draw:#fbbf24;
+    --win-bg:rgba(74,222,128,0.12);--loss-bg:rgba(248,113,113,0.12);--draw-bg:rgba(251,191,36,0.12);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-  .header { background: linear-gradient(160deg, #0d2144 0%, #1a3a6b 60%, #0d2144 100%); border-bottom: 2px solid var(--gold); padding: 1.5rem 1.5rem 1rem; position: sticky; top: 0; z-index: 100; }
-  .header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 1rem; }
-  .crest { width: 48px; height: 48px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-  .team-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.08em; color: var(--gold); line-height: 1; }
-  .team-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
-  .stats-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-  .stat { background: rgba(255,255,255,0.07); border-radius: 6px; padding: 6px 4px; text-align: center; }
-  .stat-lbl { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-  .stat-val { font-size: 20px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; line-height: 1.1; }
-  .tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(201,168,76,0.25); overflow-x: auto; }
-  .tab { padding: 10px 18px; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.15s; }
-  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .tab:hover:not(.active) { color: var(--cream); }
-  .panel { display: none; padding: 1rem; }
-  .panel.active { display: block; }
-  .season-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
-  .season-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; background: rgba(255,255,255,0.03); }
-  .season-name { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 0.08em; color: var(--gold2); }
-  .season-rec { font-size: 12px; color: var(--muted); }
-  .season-pills { display: flex; gap: 5px; align-items: center; }
-  .pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; }
-  .pill-w { background: var(--win-bg); color: var(--win); }
-  .pill-l { background: var(--loss-bg); color: var(--loss); }
-  .pill-t { background: var(--draw-bg); color: var(--draw); }
-  .chevron { font-size: 11px; color: var(--muted); transition: transform 0.2s; }
-  .season-body { display: none; padding: 0 0 8px; }
-  .season-body.open { display: block; }
-  .chevron.open { transform: rotate(180deg); }
-  .game-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .game-table th { text-align: left; padding: 6px 10px; font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .game-table td { padding: 7px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .game-table tr:last-child td { border-bottom: none; }
-  .game-table tr:hover td { background: rgba(255,255,255,0.03); }
-  .score { font-weight: 600; color: var(--cream); }
-  .date-cell { color: var(--muted); white-space: nowrap; font-size: 11px; }
-  .opp-cell { color: var(--cream); }
-  .loc-badge { font-size: 9px; padding: 1px 5px; border-radius: 2px; background: rgba(255,255,255,0.08); color: var(--muted); }
-  .res-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
-  .res-W { background: var(--win-bg); color: var(--win); }
-  .res-L { background: var(--loss-bg); color: var(--loss); }
-  .res-T { background: var(--draw-bg); color: var(--draw); }
-  .filter-bar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
-  .filt-btn { padding: 5px 13px; font-size: 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: var(--muted); cursor: pointer; transition: all 0.15s; }
-  .filt-btn.on { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 600; }
-  .filt-btn:hover:not(.on) { color: var(--cream); }
-  .comp-sel { font-size: 12px; padding: 5px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: var(--cream); flex: 1; min-width: 0; max-width: 220px; }
-  .comp-sel option { background: var(--navy2); }
-  .count-note { font-size: 11px; color: var(--muted); margin-left: auto; }
-  .add-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.25); border-radius: 8px; padding: 1rem; margin-bottom: 12px; }
-  .form-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-  .form-grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  .field-lbl { font-size: 11px; color: var(--muted); margin-bottom: 3px; display: block; }
-  .field-inp { width: 100%; padding: 7px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: var(--cream); font-size: 13px; font-family: 'DM Sans', sans-serif; }
-  .field-inp:focus { outline: none; border-color: var(--gold); }
-  .field-inp option { background: var(--navy2); }
-  .save-btn { float: right; padding: 7px 22px; background: var(--gold); border: none; border-radius: 4px; color: var(--navy); font-weight: 700; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-  .save-btn:hover { background: var(--gold2); }
-  .del-btn { background: none; border: none; color: rgba(255,255,255,0.2); cursor: pointer; font-size: 14px; padding: 0 4px; transition: color 0.15s; }
-  .del-btn:hover { color: var(--loss); }
-  .all-table-wrap { overflow-x: auto; }
-  .all-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .all-table th { text-align: left; padding: 6px 8px; font-size: 10px; color: var(--muted); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid rgba(201,168,76,0.25); white-space: nowrap; }
-  .all-table td { padding: 7px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .all-table tr:hover td { background: rgba(255,255,255,0.03); }
-  .comp-tag { font-size: 10px; padding: 1px 6px; border-radius: 3px; background: rgba(255,255,255,0.08); color: var(--muted); white-space: nowrap; max-width: 150px; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
-  .empty { text-align: center; padding: 2.5rem; color: var(--muted); font-size: 13px; }
-  @media (max-width: 480px) {
-    .stats-row { grid-template-columns: repeat(4, 1fr); }
-    .stats-row .stat:nth-child(n+5) { display: none; }
-    .form-grid4 { grid-template-columns: 1fr 1fr; }
-    .team-title { font-size: 18px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh}
+  .header{background:linear-gradient(160deg,#0d2144 0%,#1a3a6b 60%,#0d2144 100%);border-bottom:2px solid var(--gold);padding:1.2rem 1.2rem 0.8rem;position:sticky;top:0;z-index:100}
+  .header-top{display:flex;align-items:center;gap:12px;margin-bottom:0.8rem}
+  .crest{width:44px;height:44px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+  .team-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.08em;color:var(--gold);line-height:1}
+  .team-sub{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+  .stats-row{display:grid;grid-template-columns:repeat(9,1fr);gap:5px;margin-bottom:0}
+  .stat{background:rgba(255,255,255,0.07);border-radius:6px;padding:5px 3px;text-align:center}
+  .stat-lbl{font-size:9px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase}
+  .stat-val{font-size:16px;font-family:'Bebas Neue',sans-serif;line-height:1.1}
+  .stat-pct{font-size:9px;color:var(--muted);margin-top:1px}
+  .tabs{display:flex;border-bottom:1px solid rgba(201,168,76,0.25);overflow-x:auto}
+  .tab{padding:9px 16px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.15s}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+  .tab:hover:not(.active){color:var(--cream)}
+  .panel{display:none;padding:1rem}
+  .panel.active{display:block}
+
+  /* SEASON CARDS */
+  .season-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:12px;overflow:hidden}
+  .season-header{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 14px;cursor:pointer;background:rgba(255,255,255,0.03)}
+  .season-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.08em;color:var(--gold2)}
+  .season-meta{font-size:11px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:8px}
+  .season-meta span{white-space:nowrap}
+  .season-pills{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px}
+  .pill-w{background:var(--win-bg);color:var(--win)}
+  .pill-l{background:var(--loss-bg);color:var(--loss)}
+  .pill-t{background:var(--draw-bg);color:var(--draw)}
+  .chevron{font-size:11px;color:var(--muted);transition:transform 0.2s;margin-top:2px}
+  .season-body{display:none;padding:0 0 8px}
+  .season-body.open{display:block}
+  .chevron.open{transform:rotate(180deg)}
+
+  /* BAR CHART inside season */
+  .pct-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin:6px 14px 10px;gap:1px}
+  .pct-bar-w{background:var(--win)}
+  .pct-bar-l{background:var(--loss)}
+  .pct-bar-t{background:var(--draw)}
+
+  /* COMP sub-section */
+  .comp-section{margin:0 0 4px}
+  .comp-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px 4px;flex-wrap:wrap;gap:4px}
+  .comp-name{font-size:11px;color:var(--gold);letter-spacing:0.05em;text-transform:uppercase;font-weight:600}
+  .comp-stats{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+  .comp-stats span{white-space:nowrap}
+
+  /* GAMES TABLE */
+  .game-table{width:100%;border-collapse:collapse;font-size:12px}
+  .game-table th{text-align:left;padding:5px 10px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .game-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .game-table tr:last-child td{border-bottom:none}
+  .game-table tr:hover td{background:rgba(255,255,255,0.03)}
+  .score{font-weight:600;color:var(--cream)}
+  .date-cell{color:var(--muted);white-space:nowrap;font-size:11px}
+  .opp-cell{color:var(--cream)}
+  .loc-badge{font-size:9px;padding:1px 5px;border-radius:2px;background:rgba(255,255,255,0.08);color:var(--muted)}
+  .res-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px}
+  .res-W{background:var(--win-bg);color:var(--win)}
+  .res-L{background:var(--loss-bg);color:var(--loss)}
+  .res-T{background:var(--draw-bg);color:var(--draw)}
+  .del-btn{background:none;border:none;color:rgba(255,255,255,0.2);cursor:pointer;font-size:13px;padding:0 4px;transition:color 0.15s}
+  .del-btn:hover{color:var(--loss)}
+
+  /* FILTER BAR */
+  .filter-bar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+  .filt-btn{padding:5px 13px;font-size:12px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:var(--muted);cursor:pointer;transition:all 0.15s}
+  .filt-btn.on{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
+  .comp-sel{font-size:12px;padding:5px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:var(--cream);flex:1;min-width:0;max-width:220px}
+  .comp-sel option{background:var(--navy2)}
+  .count-note{font-size:11px;color:var(--muted);margin-left:auto}
+
+  /* ALL TABLE */
+  .all-table-wrap{overflow-x:auto}
+  .all-table{width:100%;border-collapse:collapse;font-size:12px}
+  .all-table th{text-align:left;padding:6px 8px;font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,0.25);white-space:nowrap}
+  .all-table td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .all-table tr:hover td{background:rgba(255,255,255,0.03)}
+  .comp-tag{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,0.08);color:var(--muted);white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
+
+  /* ADD FORM */
+  .add-form{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:1rem;margin-bottom:12px}
+  .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .form-grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+  .field-lbl{font-size:11px;color:var(--muted);margin-bottom:3px;display:block}
+  .field-inp{width:100%;padding:7px 8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif}
+  .field-inp:focus{outline:none;border-color:var(--gold)}
+  .field-inp option{background:var(--navy2)}
+  .save-btn{float:right;padding:7px 22px;background:var(--gold);border:none;border-radius:4px;color:var(--navy);font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif}
+  .save-btn:hover{background:var(--gold2)}
+
+  /* CHARTS */
+  .charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  .chart-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px}
+  .chart-title{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--gold2);letter-spacing:0.06em;margin-bottom:12px}
+  canvas{width:100%!important}
+  .empty{text-align:center;padding:2.5rem;color:var(--muted);font-size:13px}
+  @media(max-width:560px){
+    .stats-row{grid-template-columns:repeat(5,1fr)}
+    .stats-row .stat:nth-child(n+6){display:none}
+    .form-grid4{grid-template-columns:1fr 1fr}
+    .charts-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -110,10 +130,19 @@
 </div>
 <div class="tabs">
   <div class="tab active" onclick="switchTab('seasons')">By Season</div>
+  <div class="tab" onclick="switchTab('charts')">Charts</div>
   <div class="tab" onclick="switchTab('all')">All Games</div>
   <div class="tab" onclick="switchTab('add')">Add Game</div>
 </div>
 <div id="panel-seasons" class="panel active"></div>
+<div id="panel-charts" class="panel">
+  <div class="charts-grid">
+    <div class="chart-card"><div class="chart-title">W / L / D by Season</div><canvas id="chartWLD"></canvas></div>
+    <div class="chart-card"><div class="chart-title">Goals For vs Against by Season</div><canvas id="chartGoals"></canvas></div>
+    <div class="chart-card"><div class="chart-title">Avg Goals per Game by Season</div><canvas id="chartAvg"></canvas></div>
+    <div class="chart-card"><div class="chart-title">Win % by Season</div><canvas id="chartWinPct"></canvas></div>
+  </div>
+</div>
 <div id="panel-all" class="panel"></div>
 <div id="panel-add" class="panel">
   <div class="add-form">
@@ -125,9 +154,7 @@
       <div><span class="field-lbl">Our Goals</span><input type="number" id="fGF" class="field-inp" min="0" value="0"/></div>
       <div><span class="field-lbl">Their Goals</span><input type="number" id="fGA" class="field-inp" min="0" value="0"/></div>
       <div><span class="field-lbl">Venue</span>
-        <select id="fLoc" class="field-inp">
-          <option>Home</option><option selected>Away</option><option>Neutral</option>
-        </select>
+        <select id="fLoc" class="field-inp"><option>Home</option><option selected>Away</option><option>Neutral</option></select>
       </div>
       <div><span class="field-lbl">Competition</span><input type="text" id="fComp" class="field-inp" placeholder="e.g. North Atlantic"/></div>
     </div>
@@ -135,178 +162,206 @@
     <div style="clear:both"></div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 const STORAGE_KEY = 'albion_b14_premier_games_v2';
 const SEED = [
-  {id:1,  date:'2025-09-13',opp:'Soccer Kids NYC',                                    gf:8, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:2,  date:'2025-09-28',opp:'Manhattan SC Atalanta 2014',                         gf:9, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:3,  date:'2025-10-05',opp:'Soccer Space FC 2014',                               gf:5, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:4,  date:'2025-10-19',opp:'Progressive Youth SC',                               gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:5,  date:'2025-10-26',opp:'VIP SA NYCSL 2',                                     gf:2, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:6,  date:'2025-11-01',opp:'FC Copa Academy Brooklyn Black',                     gf:9, ga:3, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:7,  date:'2025-11-08',opp:'Brooklyn United Academy EDP',                        gf:3, ga:3, r:'T',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:8,  date:'2025-11-16',opp:'Manhattan SC Genoa',                                 gf:3, ga:2, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
-  {id:9,  date:'2026-04-25',opp:'DV7 NY',                                             gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Spring 2026'},
-  {id:10, date:'2026-05-02',opp:'Asphalt Green SC Gold',                              gf:0, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
-  {id:11, date:'2026-05-16',opp:'VIP SA NYCSL 2',                                     gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
-  {id:12, date:'2026-05-30',opp:'SC Gjoa Riise',                                      gf:3, ga:5, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
-  {id:13, date:'2025-10-25',opp:'West Side Red Bulls Premier',                        gf:2, ga:1, r:'W',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
-  {id:14, date:'2025-11-15',opp:'Brooklyn United Academy Regional',                   gf:1, ga:2, r:'L',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
-  {id:15, date:'2025-11-16',opp:'Auburndale SC Blast',                                gf:0, ga:6, r:'L',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
-  {id:16, date:'2025-10-11',opp:'Asphalt Green SC White',                             gf:0, ga:2, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
-  {id:17, date:'2025-10-11',opp:'Revolution Football',                                gf:0, ga:6, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
-  {id:18, date:'2025-10-12',opp:'East Meadow SC Pre ECNL RL',                        gf:1, ga:3, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
-  {id:19, date:'2026-05-23',opp:'East Coast FC Surf Black',                           gf:7, ga:1, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
-  {id:20, date:'2026-05-23',opp:'Harrison Fire',                                      gf:3, ga:3, r:'T',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
-  {id:21, date:'2026-05-24',opp:'West Islip SC NLSA Select',                          gf:2, ga:2, r:'T',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
-  {id:22, date:'2026-05-24',opp:'East Coast FC Surf White',                           gf:5, ga:0, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
-  {id:23, date:'2026-05-25',opp:'Brooklyn United Academy Regional',                   gf:3, ga:0, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
-  {id:24, date:'2026-03-08',opp:'Coaches Mindset Training',                           gf:5, ga:1, r:'W',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
-  {id:25, date:'2026-03-08',opp:'Fairfield United 2014 Black',                        gf:4, ga:4, r:'T',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
-  {id:26, date:'2026-03-08',opp:'Albion B14 Premier Two',                             gf:4, ga:3, r:'W',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
-  {id:27, date:'2026-02-28',opp:'Nlnyc',                                              gf:3, ga:8, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
-  {id:28, date:'2026-02-28',opp:'Orion 2013',                                         gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
-  {id:29, date:'2026-02-28',opp:'NLNYC Green',                                        gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
-  {id:30, date:'2026-02-28',opp:'SBU 2013',                                           gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
-  {id:31, date:'2026-02-01',opp:'Montclair United 2014 Blue',                         gf:1, ga:5, r:'L',loc:'Neutral',comp:'Winter One-Day 5v5'},
-  {id:32, date:'2026-02-01',opp:'Vikings B2014 White',                                gf:1, ga:0, r:'W',loc:'Neutral',comp:'Winter One-Day 5v5'},
-  {id:33, date:'2026-02-01',opp:'LISC 2013 Academy',                                  gf:1, ga:5, r:'L',loc:'Neutral',comp:'Winter One-Day 5v5'},
-  {id:34, date:'2026-02-01',opp:'LISC 2013 Premier',                                  gf:4, ga:4, r:'T',loc:'Neutral',comp:'Winter One-Day 5v5'},
-  {id:35, date:'2025-06-14',opp:'Soccer For Life SC Club Black',                      gf:2, ga:6, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
-  {id:36, date:'2025-06-14',opp:'FC Neshanic Saprissa',                               gf:3, ga:4, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
-  {id:37, date:'2025-06-15',opp:'STA White U11B',                                     gf:2, ga:4, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
-  {id:38, date:'2025-06-07',opp:'French Football Federation Academy Maignan',         gf:4, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:39, date:'2025-05-31',opp:'Brooklyn Force SC Blue',                             gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:40, date:'2025-05-17',opp:'Triboro United SC Cyan',                             gf:0, ga:5, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:41, date:'2025-05-10',opp:'Soccer Stars United Comets',                         gf:3, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:42, date:'2025-05-04',opp:'5 Star SA Blue',                                     gf:5, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Spring 2025'},
-  {id:43, date:'2025-05-03',opp:'Asphalt Green SC U11B',                              gf:3, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:44, date:'2025-04-26',opp:'Downtown United SC EDP',                             gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:45, date:'2025-04-06',opp:'DV7 NY',                                             gf:1, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
-  {id:46, date:'2025-04-05',opp:'Chelsea Piers SC',                                   gf:5, ga:4, r:'W',loc:'Home',   comp:'North Atlantic Spring 2025'},
-  {id:47, date:'2025-05-24',opp:'West Islip SC Crew Gold',                            gf:1, ga:1, r:'T',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
-  {id:48, date:'2025-05-24',opp:'Manhattan SC Palmeiras',                             gf:5, ga:1, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
-  {id:49, date:'2025-05-24',opp:'Manhattan SC Riverhounds',                           gf:2, ga:0, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
-  {id:50, date:'2025-05-24',opp:'Bay Shore LIJSL Lightning',                          gf:2, ga:0, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
-  {id:51, date:'2025-03-02',opp:'FA Euro New York Pre Academy',                       gf:4, ga:1, r:'W',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
-  {id:52, date:'2025-03-01',opp:'FC Westchester White',                               gf:0, ga:1, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
-  {id:53, date:'2025-03-01',opp:'Long Island SC Premier Orange',                      gf:7, ga:1, r:'W',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
-  {id:54, date:'2024-11-23',opp:'Manhattan SC Atalanta',                              gf:5, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
-  {id:55, date:'2024-11-10',opp:'Manhattan SC Atalanta',                              gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Fall 2024'},
-  {id:56, date:'2024-11-09',opp:'Brooklyn Force SC Blue',                             gf:5, ga:4, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
-  {id:57, date:'2024-10-27',opp:'Soccer Stars United Comets',                         gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
-  {id:58, date:'2024-10-19',opp:'Brooklyn United Academy National U11B',              gf:1, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Fall 2024'},
-  {id:59, date:'2024-10-06',opp:'Brooklyn Force SC Blue',                             gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Fall 2024'},
-  {id:60, date:'2024-09-21',opp:'Soccer Stars United Comets',                         gf:3, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
-  {id:61, date:'2024-09-15',opp:'FC Copa Academy Brooklyn',                           gf:11,ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
-  {id:62, date:'2024-11-17',opp:'Princeton Youth SA North Orange',                    gf:1, ga:2, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
-  {id:63, date:'2024-11-17',opp:'FC Copa Academy Black NJ Central',                   gf:0, ga:5, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
-  {id:64, date:'2024-11-16',opp:'Sporting AC NJ Liverpool FC Academy',                gf:4, ga:1, r:'W',loc:'Neutral',comp:'EDP Fall Classic 2024'},
-  {id:65, date:'2024-11-16',opp:'Inter Connecticut FC RL',                            gf:1, ga:7, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
-  {id:66, date:'2024-10-13',opp:'Westchester Flames Elite',                           gf:0, ga:2, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
-  {id:67, date:'2024-10-12',opp:'World Class FC Pre ECNL II',                         gf:0, ga:9, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
-  {id:68, date:'2024-10-12',opp:'East Meadow SC Sao Paulo',                           gf:0, ga:10,r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
-  {id:69, date:'2024-06-16',opp:'Rahway YS JFC New Castle',                           gf:3, ga:1, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
-  {id:70, date:'2024-06-16',opp:'Soccer For Life SC Club Black',                      gf:3, ga:0, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
-  {id:71, date:'2024-06-15',opp:'RCD Espanyol De Barcelona NJ Yellow',                gf:5, ga:1, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
-  {id:72, date:'2024-06-15',opp:'Ole FC Regional',                                    gf:6, ga:2, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
-  {id:73, date:'2024-06-09',opp:'Brooklyn United Academy PSU Eindhoven',              gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:74, date:'2024-06-08',opp:'Soccer Stars United Comets',                         gf:12,ga:4, r:'W',loc:'Home',   comp:'North Atlantic Spring 2024'},
-  {id:75, date:'2024-06-01',opp:'Soccer Stars United Auriga',                         gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:76, date:'2024-05-18',opp:'Met Academy Queens White',                           gf:5, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:77, date:'2024-05-12',opp:'Kosmos FC Flushing',                                 gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:78, date:'2024-05-04',opp:'Asphalt Green SC Gold',                              gf:3, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:79, date:'2024-04-20',opp:'DV7 NY',                                             gf:5, ga:7, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
-  {id:80, date:'2024-04-06',opp:'Soccer Stars United Comets',                         gf:3, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Spring 2024'},
-  {id:81, date:'2024-04-13',opp:'FC Transylvania',                                    gf:2, ga:6, r:'L',loc:'Neutral',comp:'EDP League Cups 2023-2024'},
-  {id:82, date:'2023-12-02',opp:'East Meadow SC Sao Paulo',                           gf:0, ga:7, r:'L',loc:'Home',   comp:'EDP League Cups 2023-2024'},
-  {id:83, date:'2023-10-28',opp:'Soccer Stars United Mensa',                          gf:6, ga:2, r:'W',loc:'Home',   comp:'EDP League Cups 2023-2024'},
-  {id:84, date:'2023-10-22',opp:'White Plains Academy Pre National',                  gf:3, ga:2, r:'W',loc:'Away',   comp:'EDP League Cups 2023-2024'},
-  {id:85, date:'2024-03-03',opp:'Commack Soccer Blaze',                               gf:2, ga:7, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
-  {id:86, date:'2024-03-02',opp:'Manhattan SC Liverpool White',                       gf:3, ga:3, r:'T',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
-  {id:87, date:'2024-03-02',opp:'French Football Federation Academy Maignan',         gf:1, ga:3, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
-  {id:88, date:'2023-10-08',opp:'Westchester Flames GT',                              gf:1, ga:1, r:'T',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
-  {id:89, date:'2023-10-07',opp:'Auburndale SC Inter',                                gf:5, ga:1, r:'W',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
-  {id:90, date:'2023-10-07',opp:'CSLN',                                               gf:0, ga:3, r:'L',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
-  {id:91, date:'2023-09-17',opp:'BVB IA NYC-Borussia Dortmund NYC 2',                 gf:4, ga:4, r:'T',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:92, date:'2023-09-23',opp:'Coney Island Cyclones United Tigers 2014',           gf:6, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:93, date:'2023-10-01',opp:'Brooklyn United Academy PSU B2014 Bayern Munich',    gf:4, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:94, date:'2023-10-15',opp:'Soccer Stars United Comets',                         gf:5, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:95, date:'2023-10-29',opp:'Coney Island Cyclones United Tigers 2014',           gf:3, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:96, date:'2023-11-04',opp:'Brooklyn United Academy PSU B2014 Bayern Munich',    gf:4, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:97, date:'2023-11-12',opp:'Soccer Stars United Comets',                         gf:3, ga:0, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
-  {id:98, date:'2023-11-18',opp:'Asphalt Green B2014 Gold',                           gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:1,  date:'2025-09-13',opp:'Soccer Kids NYC',                                 gf:8, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:2,  date:'2025-09-28',opp:'Manhattan SC Atalanta 2014',                      gf:9, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:3,  date:'2025-10-05',opp:'Soccer Space FC 2014',                            gf:5, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:4,  date:'2025-10-19',opp:'Progressive Youth SC',                            gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:5,  date:'2025-10-26',opp:'VIP SA NYCSL 2',                                  gf:2, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:6,  date:'2025-11-01',opp:'FC Copa Academy Brooklyn Black',                  gf:9, ga:3, r:'W',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:7,  date:'2025-11-08',opp:'Brooklyn United Academy EDP',                     gf:3, ga:3, r:'T',loc:'Home',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:8,  date:'2025-11-16',opp:'Manhattan SC Genoa',                              gf:3, ga:2, r:'W',loc:'Away',   comp:'North Atlantic Fall 2025-Spring 2026'},
+  {id:9,  date:'2026-04-25',opp:'DV7 NY',                                          gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Spring 2026'},
+  {id:10, date:'2026-05-02',opp:'Asphalt Green SC Gold',                           gf:0, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
+  {id:11, date:'2026-05-16',opp:'VIP SA NYCSL 2',                                  gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
+  {id:12, date:'2026-05-30',opp:'SC Gjoa Riise',                                   gf:3, ga:5, r:'L',loc:'Away',   comp:'North Atlantic Spring 2026'},
+  {id:13, date:'2025-10-25',opp:'West Side Red Bulls Premier',                     gf:2, ga:1, r:'W',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
+  {id:14, date:'2025-11-15',opp:'Brooklyn United Academy Regional',                gf:1, ga:2, r:'L',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
+  {id:15, date:'2025-11-16',opp:'Auburndale SC Blast',                             gf:0, ga:6, r:'L',loc:'Neutral',comp:'Tri State Championship 2025-2026'},
+  {id:16, date:'2025-10-11',opp:'Asphalt Green SC White',                          gf:0, ga:2, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
+  {id:17, date:'2025-10-11',opp:'Revolution Football',                             gf:0, ga:6, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
+  {id:18, date:'2025-10-12',opp:'East Meadow SC Pre ECNL RL',                     gf:1, ga:3, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2025'},
+  {id:19, date:'2026-05-23',opp:'East Coast FC Surf Black',                        gf:7, ga:1, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
+  {id:20, date:'2026-05-23',opp:'Harrison Fire',                                   gf:3, ga:3, r:'T',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
+  {id:21, date:'2026-05-24',opp:'West Islip SC NLSA Select',                       gf:2, ga:2, r:'T',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
+  {id:22, date:'2026-05-24',opp:'East Coast FC Surf White',                        gf:5, ga:0, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
+  {id:23, date:'2026-05-25',opp:'Brooklyn United Academy Regional',                gf:3, ga:0, r:'W',loc:'Neutral',comp:'FC DELCO Players Cup 2026'},
+  {id:24, date:'2026-03-08',opp:'Coaches Mindset Training',                        gf:5, ga:1, r:'W',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
+  {id:25, date:'2026-03-08',opp:'Fairfield United 2014 Black',                     gf:4, ga:4, r:'T',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
+  {id:26, date:'2026-03-08',opp:'Albion B14 Premier Two',                          gf:4, ga:3, r:'W',loc:'Neutral',comp:'NYC FC 5v5 Coliseum Cup'},
+  {id:27, date:'2026-02-28',opp:'Nlnyc',                                           gf:3, ga:8, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
+  {id:28, date:'2026-02-28',opp:'Orion 2013',                                      gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
+  {id:29, date:'2026-02-28',opp:'NLNYC Green',                                     gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
+  {id:30, date:'2026-02-28',opp:'SBU 2013',                                        gf:0, ga:5, r:'L',loc:'Neutral',comp:'Socceroof Crown Heights'},
+  {id:31, date:'2026-02-01',opp:'Montclair United 2014 Blue',                      gf:1, ga:5, r:'L',loc:'Neutral',comp:'Winter One-Day 5v5'},
+  {id:32, date:'2026-02-01',opp:'Vikings B2014 White',                             gf:1, ga:0, r:'W',loc:'Neutral',comp:'Winter One-Day 5v5'},
+  {id:33, date:'2026-02-01',opp:'LISC 2013 Academy',                               gf:1, ga:5, r:'L',loc:'Neutral',comp:'Winter One-Day 5v5'},
+  {id:34, date:'2026-02-01',opp:'LISC 2013 Premier',                               gf:4, ga:4, r:'T',loc:'Neutral',comp:'Winter One-Day 5v5'},
+  {id:35, date:'2025-06-14',opp:'Soccer For Life SC Club Black',                   gf:2, ga:6, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
+  {id:36, date:'2025-06-14',opp:'FC Neshanic Saprissa',                            gf:3, ga:4, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
+  {id:37, date:'2025-06-15',opp:'STA White U11B',                                  gf:2, ga:4, r:'L',loc:'Neutral',comp:'EDP Summer Classic 2025'},
+  {id:38, date:'2025-06-07',opp:'French Football Federation Academy Maignan',      gf:4, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:39, date:'2025-05-31',opp:'Brooklyn Force SC Blue',                          gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:40, date:'2025-05-17',opp:'Triboro United SC Cyan',                          gf:0, ga:5, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:41, date:'2025-05-10',opp:'Soccer Stars United Comets',                      gf:3, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:42, date:'2025-05-04',opp:'5 Star SA Blue',                                  gf:5, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Spring 2025'},
+  {id:43, date:'2025-05-03',opp:'Asphalt Green SC U11B',                           gf:3, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:44, date:'2025-04-26',opp:'Downtown United SC EDP',                          gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:45, date:'2025-04-06',opp:'DV7 NY',                                          gf:1, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2025'},
+  {id:46, date:'2025-04-05',opp:'Chelsea Piers SC',                                gf:5, ga:4, r:'W',loc:'Home',   comp:'North Atlantic Spring 2025'},
+  {id:47, date:'2025-05-24',opp:'West Islip SC Crew Gold',                         gf:1, ga:1, r:'T',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
+  {id:48, date:'2025-05-24',opp:'Manhattan SC Palmeiras',                          gf:5, ga:1, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
+  {id:49, date:'2025-05-24',opp:'Manhattan SC Riverhounds',                        gf:2, ga:0, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
+  {id:50, date:'2025-05-24',opp:'Bay Shore LIJSL Lightning',                       gf:2, ga:0, r:'W',loc:'Neutral',comp:'East Meadow SC Memorial Day 2025'},
+  {id:51, date:'2025-03-02',opp:'FA Euro New York Pre Academy',                    gf:4, ga:1, r:'W',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
+  {id:52, date:'2025-03-01',opp:'FC Westchester White',                            gf:0, ga:1, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
+  {id:53, date:'2025-03-01',opp:'Long Island SC Premier Orange',                   gf:7, ga:1, r:'W',loc:'Neutral',comp:'SUSA Spring Kickoff 2025'},
+  {id:54, date:'2024-11-23',opp:'Manhattan SC Atalanta',                           gf:5, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
+  {id:55, date:'2024-11-10',opp:'Manhattan SC Atalanta',                           gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Fall 2024'},
+  {id:56, date:'2024-11-09',opp:'Brooklyn Force SC Blue',                          gf:5, ga:4, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
+  {id:57, date:'2024-10-27',opp:'Soccer Stars United Comets',                      gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
+  {id:58, date:'2024-10-19',opp:'Brooklyn United Academy National U11B',           gf:1, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Fall 2024'},
+  {id:59, date:'2024-10-06',opp:'Brooklyn Force SC Blue',                          gf:2, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Fall 2024'},
+  {id:60, date:'2024-09-21',opp:'Soccer Stars United Comets',                      gf:3, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
+  {id:61, date:'2024-09-15',opp:'FC Copa Academy Brooklyn',                        gf:11,ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2024'},
+  {id:62, date:'2024-11-17',opp:'Princeton Youth SA North Orange',                 gf:1, ga:2, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
+  {id:63, date:'2024-11-17',opp:'FC Copa Academy Black NJ Central',                gf:0, ga:5, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
+  {id:64, date:'2024-11-16',opp:'Sporting AC NJ Liverpool FC Academy',             gf:4, ga:1, r:'W',loc:'Neutral',comp:'EDP Fall Classic 2024'},
+  {id:65, date:'2024-11-16',opp:'Inter Connecticut FC RL',                         gf:1, ga:7, r:'L',loc:'Neutral',comp:'EDP Fall Classic 2024'},
+  {id:66, date:'2024-10-13',opp:'Westchester Flames Elite',                        gf:0, ga:2, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
+  {id:67, date:'2024-10-12',opp:'World Class FC Pre ECNL II',                      gf:0, ga:9, r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
+  {id:68, date:'2024-10-12',opp:'East Meadow SC Sao Paulo',                        gf:0, ga:10,r:'L',loc:'Neutral',comp:'SUSA Columbus Cup 2024'},
+  {id:69, date:'2024-06-16',opp:'Rahway YS JFC New Castle',                        gf:3, ga:1, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
+  {id:70, date:'2024-06-16',opp:'Soccer For Life SC Club Black',                   gf:3, ga:0, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
+  {id:71, date:'2024-06-15',opp:'RCD Espanyol De Barcelona NJ Yellow',             gf:5, ga:1, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
+  {id:72, date:'2024-06-15',opp:'Ole FC Regional',                                 gf:6, ga:2, r:'W',loc:'Neutral',comp:'EDP Summer Classic 2024'},
+  {id:73, date:'2024-06-09',opp:'Brooklyn United Academy PSU Eindhoven',           gf:2, ga:2, r:'T',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:74, date:'2024-06-08',opp:'Soccer Stars United Comets',                      gf:12,ga:4, r:'W',loc:'Home',   comp:'North Atlantic Spring 2024'},
+  {id:75, date:'2024-06-01',opp:'Soccer Stars United Auriga',                      gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:76, date:'2024-05-18',opp:'Met Academy Queens White',                        gf:5, ga:6, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:77, date:'2024-05-12',opp:'Kosmos FC Flushing',                              gf:1, ga:3, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:78, date:'2024-05-04',opp:'Asphalt Green SC Gold',                           gf:3, ga:4, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:79, date:'2024-04-20',opp:'DV7 NY',                                          gf:5, ga:7, r:'L',loc:'Away',   comp:'North Atlantic Spring 2024'},
+  {id:80, date:'2024-04-06',opp:'Soccer Stars United Comets',                      gf:3, ga:2, r:'W',loc:'Home',   comp:'North Atlantic Spring 2024'},
+  {id:81, date:'2024-04-13',opp:'FC Transylvania',                                 gf:2, ga:6, r:'L',loc:'Neutral',comp:'EDP League Cups 2023-2024'},
+  {id:82, date:'2023-12-02',opp:'East Meadow SC Sao Paulo',                        gf:0, ga:7, r:'L',loc:'Home',   comp:'EDP League Cups 2023-2024'},
+  {id:83, date:'2023-10-28',opp:'Soccer Stars United Mensa',                       gf:6, ga:2, r:'W',loc:'Home',   comp:'EDP League Cups 2023-2024'},
+  {id:84, date:'2023-10-22',opp:'White Plains Academy Pre National',               gf:3, ga:2, r:'W',loc:'Away',   comp:'EDP League Cups 2023-2024'},
+  {id:85, date:'2024-03-03',opp:'Commack Soccer Blaze',                            gf:2, ga:7, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
+  {id:86, date:'2024-03-02',opp:'Manhattan SC Liverpool White',                    gf:3, ga:3, r:'T',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
+  {id:87, date:'2024-03-02',opp:'French Football Federation Academy Maignan',      gf:1, ga:3, r:'L',loc:'Neutral',comp:'SUSA Spring Kickoff 2024'},
+  {id:88, date:'2023-10-08',opp:'Westchester Flames GT',                           gf:1, ga:1, r:'T',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
+  {id:89, date:'2023-10-07',opp:'Auburndale SC Inter',                             gf:5, ga:1, r:'W',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
+  {id:90, date:'2023-10-07',opp:'CSLN',                                            gf:0, ga:3, r:'L',loc:'Neutral',comp:'SUSA Columbus Weekend 2023'},
+  {id:91, date:'2023-09-17',opp:'BVB IA NYC-Borussia Dortmund NYC 2',              gf:4, ga:4, r:'T',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:92, date:'2023-09-23',opp:'Coney Island Cyclones United Tigers 2014',        gf:6, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:93, date:'2023-10-01',opp:'Brooklyn United Academy PSU B2014 Bayern Munich', gf:4, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:94, date:'2023-10-15',opp:'Soccer Stars United Comets',                      gf:5, ga:1, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:95, date:'2023-10-29',opp:'Coney Island Cyclones United Tigers 2014',        gf:3, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:96, date:'2023-11-04',opp:'Brooklyn United Academy PSU B2014 Bayern Munich', gf:4, ga:1, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:97, date:'2023-11-12',opp:'Soccer Stars United Comets',                      gf:3, ga:0, r:'W',loc:'Away',   comp:'North Atlantic Fall 2023-Spring 2024'},
+  {id:98, date:'2023-11-18',opp:'Asphalt Green B2014 Gold',                        gf:1, ga:0, r:'W',loc:'Home',   comp:'North Atlantic Fall 2023-Spring 2024'},
 ];
+
 const COMP_SEASON = {
-  'North Atlantic Fall 2023-Spring 2024': '2023 Fall',
-  'SUSA Columbus Weekend 2023':           '2023 Fall',
-  'EDP League Cups 2023-2024':            '2023-24',
-  'SUSA Spring Kickoff 2024':             '2024 Spring',
-  'North Atlantic Spring 2024':           '2024 Spring',
-  'EDP Summer Classic 2024':              '2024 Summer',
-  'SUSA Columbus Cup 2024':               '2024 Fall',
-  'North Atlantic Fall 2024':             '2024 Fall',
-  'EDP Fall Classic 2024':                '2024 Fall',
-  'SUSA Spring Kickoff 2025':             '2025 Spring',
-  'North Atlantic Spring 2025':           '2025 Spring',
-  'East Meadow SC Memorial Day 2025':     '2025 Spring',
-  'EDP Summer Classic 2025':              '2025 Summer',
-  'SUSA Columbus Cup 2025':               '2025 Fall',
-  'North Atlantic Fall 2025-Spring 2026': '2025-26',
-  'Tri State Championship 2025-2026':     '2025-26',
-  'Winter One-Day 5v5':                   '2025-26',
-  'Socceroof Crown Heights':              '2025-26',
-  'NYC FC 5v5 Coliseum Cup':              '2025-26',
-  'North Atlantic Spring 2026':           '2025-26',
-  'FC DELCO Players Cup 2026':            '2025-26',
+  'North Atlantic Fall 2023-Spring 2024':'2023 Fall',
+  'SUSA Columbus Weekend 2023':          '2023 Fall',
+  'EDP League Cups 2023-2024':           '2023-24',
+  'SUSA Spring Kickoff 2024':            '2024 Spring',
+  'North Atlantic Spring 2024':          '2024 Spring',
+  'EDP Summer Classic 2024':             '2024 Summer',
+  'SUSA Columbus Cup 2024':              '2024 Fall',
+  'North Atlantic Fall 2024':            '2024 Fall',
+  'EDP Fall Classic 2024':               '2024 Fall',
+  'SUSA Spring Kickoff 2025':            '2025 Spring',
+  'North Atlantic Spring 2025':          '2025 Spring',
+  'East Meadow SC Memorial Day 2025':    '2025 Spring',
+  'EDP Summer Classic 2025':             '2025 Summer',
+  'SUSA Columbus Cup 2025':              '2025 Fall',
+  'North Atlantic Fall 2025-Spring 2026':'2025-26',
+  'Tri State Championship 2025-2026':    '2025-26',
+  'Winter One-Day 5v5':                  '2025-26',
+  'Socceroof Crown Heights':             '2025-26',
+  'NYC FC 5v5 Coliseum Cup':             '2025-26',
+  'North Atlantic Spring 2026':          '2025-26',
+  'FC DELCO Players Cup 2026':           '2025-26',
 };
 const SEASON_ORDER = ['2023 Fall','2023-24','2024 Spring','2024 Summer','2024 Fall','2025 Spring','2025 Summer','2025 Fall','2025-26'];
-let games = [], allFilter = 'All', allComp = 'All';
 
-function load() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) { games = JSON.parse(raw); }
-    else { games = JSON.parse(JSON.stringify(SEED)); save(); }
-  } catch(e) { games = JSON.parse(JSON.stringify(SEED)); }
+let games=[], allFilter='All', allComp='All';
+let chartInstances = {};
+
+function load(){
+  try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)games=JSON.parse(raw);else{games=JSON.parse(JSON.stringify(SEED));save();}}
+  catch(e){games=JSON.parse(JSON.stringify(SEED));}
   renderAll();
 }
-function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(games)); } catch(e) {} }
-function fmt(d) { return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }
-function calcStats(arr) {
-  const w=arr.filter(g=>g.r==='W').length, l=arr.filter(g=>g.r==='L').length, t=arr.filter(g=>g.r==='T').length;
-  const gf=arr.reduce((s,g)=>s+g.gf,0), ga=arr.reduce((s,g)=>s+g.ga,0);
-  return {total:arr.length, w, l, t, gf, ga, gd:gf-ga};
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(games));}catch(e){}}
+function fmt(d){return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function pct(n,t){return t===0?'0%':Math.round(n/t*100)+'%';}
+function avg(v,t){return t===0?'0.0':(v/t).toFixed(1);}
+
+function calcStats(arr){
+  const w=arr.filter(g=>g.r==='W').length,l=arr.filter(g=>g.r==='L').length,t=arr.filter(g=>g.r==='T').length;
+  const gf=arr.reduce((s,g)=>s+g.gf,0),ga=arr.reduce((s,g)=>s+g.ga,0);
+  return{total:arr.length,w,l,t,gf,ga,gd:gf-ga};
 }
-function renderStats() {
-  const s = calcStats(games);
-  document.getElementById('statsRow').innerHTML = [
-    ['GP',s.total,''],['W',s.w,'var(--win)'],['L',s.l,'var(--loss)'],['D',s.t,'var(--draw)'],
-    ['GF',s.gf,'var(--win)'],['GA',s.ga,'var(--loss)'],['GD',(s.gd>=0?'+':'')+s.gd,s.gd>=0?'var(--win)':'var(--loss)'],
-  ].map(([lbl,val,col])=>`<div class="stat"><div class="stat-lbl">${lbl}</div><div class="stat-val" style="color:${col||'var(--cream)'}">${val}</div></div>`).join('');
+
+function renderStats(){
+  const s=calcStats(games);
+  document.getElementById('statsRow').innerHTML=[
+    ['GP',s.total,''],
+    ['W',s.w,'var(--win)',pct(s.w,s.total)],
+    ['L',s.l,'var(--loss)',pct(s.l,s.total)],
+    ['D',s.t,'var(--draw)',pct(s.t,s.total)],
+    ['GF',s.gf,'var(--win)',avg(s.gf,s.total)+'/g'],
+    ['GA',s.ga,'var(--loss)',avg(s.ga,s.total)+'/g'],
+    ['GD',(s.gd>=0?'+':'')+s.gd,s.gd>=0?'var(--win)':'var(--loss)',''],
+    ['Avg',avg(s.gf+s.ga,s.total),'var(--muted)','goals/g'],
+  ].map(([lbl,val,col,sub])=>`<div class="stat"><div class="stat-lbl">${lbl}</div><div class="stat-val" style="color:${col||'var(--cream)'}">${val}</div>${sub?`<div class="stat-pct">${sub}</div>`:''}</div>`).join('');
 }
-function renderSeasons() {
-  const bySeason = {};
-  games.forEach(g => {
-    const s = COMP_SEASON[g.comp] || 'Other';
-    if (!bySeason[s]) bySeason[s] = {};
-    if (!bySeason[s][g.comp]) bySeason[s][g.comp] = [];
+
+function getSeasonData(){
+  const bySeason={};
+  games.forEach(g=>{
+    const s=COMP_SEASON[g.comp]||'Other';
+    if(!bySeason[s])bySeason[s]={};
+    if(!bySeason[s][g.comp])bySeason[s][g.comp]=[];
     bySeason[s][g.comp].push(g);
   });
-  const order = [...SEASON_ORDER, ...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))];
-  let html = '';
-  order.filter(s=>bySeason[s]).forEach(season => {
-    const comps = bySeason[season];
-    const allG = Object.values(comps).flat();
-    const s = calcStats(allG);
-    const gd = (s.gd>=0?'+':'')+s.gd;
-    html += `<div class="season-card">
+  return bySeason;
+}
+
+function renderSeasons(){
+  const bySeason=getSeasonData();
+  const order=[...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))];
+  let html='';
+  order.filter(s=>bySeason[s]).forEach(season=>{
+    const comps=bySeason[season];
+    const allG=Object.values(comps).flat();
+    const s=calcStats(allG);
+    const gd=(s.gd>=0?'+':'')+s.gd;
+    const wp=pct(s.w,s.total),lp=pct(s.l,s.total),dp=pct(s.t,s.total);
+    const avgGF=avg(s.gf,s.total),avgGA=avg(s.ga,s.total);
+    const wPx=s.total?s.w/s.total*100:0,lPx=s.total?s.l/s.total*100:0,tPx=s.total?s.t/s.total*100:0;
+    html+=`<div class="season-card">
       <div class="season-header" onclick="toggleSeason(this)">
-        <div>
+        <div style="flex:1">
           <div class="season-name">${season}</div>
-          <div class="season-rec" style="margin-top:2px">${s.total} games &middot; ${s.gf}&ndash;${s.ga} goals (${gd})</div>
+          <div class="season-meta">
+            <span>${s.total} games</span>
+            <span style="color:var(--win)">${wp} W</span>
+            <span style="color:var(--loss)">${lp} L</span>
+            <span style="color:var(--draw)">${dp} D</span>
+            <span>Avg ${avgGF} scored / ${avgGA} conceded</span>
+            <span>GD ${gd}</span>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;gap:6px">
+        <div style="display:flex;align-items:flex-start;gap:6px;margin-left:8px">
           <div class="season-pills">
             <span class="pill pill-w">${s.w}W</span>
             <span class="pill pill-l">${s.l}L</span>
@@ -315,12 +370,27 @@ function renderSeasons() {
           <div class="chevron">&#9660;</div>
         </div>
       </div>
+      <div class="pct-bar">
+        <div class="pct-bar-w" style="width:${wPx}%"></div>
+        <div class="pct-bar-l" style="width:${lPx}%"></div>
+        <div class="pct-bar-t" style="width:${tPx}%"></div>
+      </div>
       <div class="season-body">`;
-    Object.keys(comps).sort().forEach(comp => {
-      const gs = [...comps[comp]].sort((a,b)=>new Date(b.date)-new Date(a.date));
-      const cs = calcStats(gs);
-      html += `<div>
-        <div style="padding:8px 14px 4px;font-size:11px;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;font-weight:600">${comp} <span style="color:var(--muted);font-weight:400">(${cs.w}W ${cs.l}L ${cs.t}D)</span></div>
+
+    Object.keys(comps).sort().forEach(comp=>{
+      const gs=[...comps[comp]].sort((a,b)=>new Date(b.date)-new Date(a.date));
+      const cs=calcStats(gs);
+      const avgF=avg(cs.gf,cs.total),avgA=avg(cs.ga,cs.total);
+      html+=`<div class="comp-section">
+        <div class="comp-header">
+          <div class="comp-name">${comp}</div>
+          <div class="comp-stats">
+            <span style="color:var(--win)">${cs.w}W (${pct(cs.w,cs.total)})</span>
+            <span style="color:var(--loss)">${cs.l}L (${pct(cs.l,cs.total)})</span>
+            <span style="color:var(--draw)">${cs.t}D (${pct(cs.t,cs.total)})</span>
+            <span>&#8709; ${avgF} / ${avgA}</span>
+          </div>
+        </div>
         <table class="game-table">
           <thead><tr><th>Date</th><th>Opponent</th><th>Score</th><th>Result</th><th></th></tr></thead>
           <tbody>${gs.map(g=>`<tr>
@@ -328,61 +398,96 @@ function renderSeasons() {
             <td class="opp-cell">${g.opp} <span class="loc-badge">${g.loc[0]}</span></td>
             <td class="score">${g.gf} &ndash; ${g.ga}</td>
             <td><span class="res-badge res-${g.r}">${g.r==='W'?'Win':g.r==='L'?'Loss':'Draw'}</span></td>
-            <td><button class="del-btn" onclick="delGame(${g.id})" title="Delete">&#10005;</button></td>
+            <td><button class="del-btn" onclick="delGame(${g.id})">&#10005;</button></td>
           </tr>`).join('')}</tbody>
         </table></div>`;
     });
-    html += `</div></div>`;
+    html+=`</div></div>`;
   });
-  document.getElementById('panel-seasons').innerHTML = html || '<div class="empty">No games yet.</div>';
+  document.getElementById('panel-seasons').innerHTML=html||'<div class="empty">No games yet.</div>';
 }
-function renderAllGames() {
-  const comps = ['All',...new Set(games.map(g=>g.comp))].sort((a,b)=>a==='All'?-1:a.localeCompare(b));
-  const vis = [...games].filter(g=>(allFilter==='All'||g.r===allFilter)&&(allComp==='All'||g.comp===allComp)).sort((a,b)=>new Date(b.date)-new Date(a.date));
-  const filterBar = `<div class="filter-bar">
+
+function renderCharts(){
+  const bySeason=getSeasonData();
+  const order=[...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))].filter(s=>bySeason[s]);
+  const labels=order;
+  const wins=[],losses=[],draws=[],gfArr=[],gaArr=[],avgFor=[],avgAgainst=[],winPcts=[];
+  order.forEach(s=>{
+    const g=Object.values(bySeason[s]).flat();
+    const st=calcStats(g);
+    wins.push(st.w);losses.push(st.l);draws.push(st.t);
+    gfArr.push(st.gf);gaArr.push(st.ga);
+    avgFor.push(parseFloat(avg(st.gf,st.total)));
+    avgAgainst.push(parseFloat(avg(st.ga,st.total)));
+    winPcts.push(st.total?Math.round(st.w/st.total*100):0);
+  });
+
+  const defaults={responsive:true,plugins:{legend:{labels:{color:'#7a9abf',font:{size:11}}},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}`}}},scales:{x:{ticks:{color:'#7a9abf',font:{size:10},maxRotation:45},grid:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#7a9abf',font:{size:10}},grid:{color:'rgba(255,255,255,0.06)'}}}};
+
+  function mkChart(id,cfg){
+    if(chartInstances[id])chartInstances[id].destroy();
+    chartInstances[id]=new Chart(document.getElementById(id),cfg);
+  }
+
+  mkChart('chartWLD',{type:'bar',data:{labels,datasets:[
+    {label:'Wins',data:wins,backgroundColor:'rgba(74,222,128,0.7)',borderRadius:3},
+    {label:'Losses',data:losses,backgroundColor:'rgba(248,113,113,0.7)',borderRadius:3},
+    {label:'Draws',data:draws,backgroundColor:'rgba(251,191,36,0.7)',borderRadius:3},
+  ]},options:{...defaults,plugins:{...defaults.plugins,title:{display:false}},scales:{...defaults.scales,x:{...defaults.scales.x,stacked:false},y:{...defaults.scales.y,stacked:false}}}});
+
+  mkChart('chartGoals',{type:'bar',data:{labels,datasets:[
+    {label:'Goals For',data:gfArr,backgroundColor:'rgba(74,222,128,0.6)',borderRadius:3},
+    {label:'Goals Against',data:gaArr,backgroundColor:'rgba(248,113,113,0.6)',borderRadius:3},
+  ]},options:defaults});
+
+  mkChart('chartAvg',{type:'line',data:{labels,datasets:[
+    {label:'Avg Scored',data:avgFor,borderColor:'rgba(74,222,128,0.9)',backgroundColor:'rgba(74,222,128,0.1)',tension:0.3,fill:true,pointBackgroundColor:'rgba(74,222,128,1)',pointRadius:4},
+    {label:'Avg Conceded',data:avgAgainst,borderColor:'rgba(248,113,113,0.9)',backgroundColor:'rgba(248,113,113,0.1)',tension:0.3,fill:true,pointBackgroundColor:'rgba(248,113,113,1)',pointRadius:4},
+  ]},options:defaults});
+
+  mkChart('chartWinPct',{type:'line',data:{labels,datasets:[
+    {label:'Win %',data:winPcts,borderColor:'rgba(201,168,76,0.9)',backgroundColor:'rgba(201,168,76,0.15)',tension:0.3,fill:true,pointBackgroundColor:'rgba(201,168,76,1)',pointRadius:4},
+  ]},options:{...defaults,plugins:{...defaults.plugins},scales:{...defaults.scales,y:{...defaults.scales.y,min:0,max:100,ticks:{...defaults.scales.y.ticks,callback:v=>v+'%'}}}}});
+}
+
+function renderAllGames(){
+  const comps=['All',...new Set(games.map(g=>g.comp))].sort((a,b)=>a==='All'?-1:a.localeCompare(b));
+  const vis=[...games].filter(g=>(allFilter==='All'||g.r===allFilter)&&(allComp==='All'||g.comp===allComp)).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const fb=`<div class="filter-bar">
     ${['All','W','L','T'].map(f=>`<button class="filt-btn ${allFilter===f?'on':''}" onclick="setAllFilter('${f}')">${f==='All'?'All':f==='W'?'Wins':f==='L'?'Losses':'Draws'}</button>`).join('')}
     <select class="comp-sel" onchange="setAllComp(this.value)">${comps.map(c=>`<option value="${c}" ${allComp===c?'selected':''}>${c==='All'?'All competitions':c}</option>`).join('')}</select>
     <span class="count-note">${vis.length} games</span>
   </div>`;
-  const table = vis.length===0 ? '<div class="empty">No games match.</div>' :
-    `<div class="all-table-wrap"><table class="all-table">
-      <thead><tr><th>Date</th><th>Opponent</th><th>Score</th><th>Result</th><th>Competition</th><th></th></tr></thead>
-      <tbody>${vis.map(g=>`<tr>
-        <td class="date-cell">${fmt(g.date)}</td>
-        <td class="opp-cell">${g.opp} <span class="loc-badge">${g.loc[0]}</span></td>
-        <td class="score">${g.gf} &ndash; ${g.ga}</td>
-        <td><span class="res-badge res-${g.r}">${g.r==='W'?'Win':g.r==='L'?'Loss':'Draw'}</span></td>
-        <td><span class="comp-tag" title="${g.comp}">${g.comp}</span></td>
-        <td><button class="del-btn" onclick="delGame(${g.id})" title="Delete">&#10005;</button></td>
-      </tr>`).join('')}</tbody>
-    </table></div>`;
-  document.getElementById('panel-all').innerHTML = filterBar + table;
+  const tbl=vis.length===0?'<div class="empty">No games match.</div>':`<div class="all-table-wrap"><table class="all-table">
+    <thead><tr><th>Date</th><th>Opponent</th><th>Score</th><th>Result</th><th>Competition</th><th></th></tr></thead>
+    <tbody>${vis.map(g=>`<tr>
+      <td class="date-cell">${fmt(g.date)}</td>
+      <td class="opp-cell">${g.opp} <span class="loc-badge">${g.loc[0]}</span></td>
+      <td class="score">${g.gf} &ndash; ${g.ga}</td>
+      <td><span class="res-badge res-${g.r}">${g.r==='W'?'Win':g.r==='L'?'Loss':'Draw'}</span></td>
+      <td><span class="comp-tag" title="${g.comp}">${g.comp}</span></td>
+      <td><button class="del-btn" onclick="delGame(${g.id})">&#10005;</button></td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+  document.getElementById('panel-all').innerHTML=fb+tbl;
 }
-function renderAll() { renderStats(); renderSeasons(); renderAllGames(); }
-function setAllFilter(f) { allFilter=f; renderAllGames(); }
-function setAllComp(c) { allComp=c; renderAllGames(); }
-function toggleSeason(header) {
-  const body = header.nextElementSibling;
-  const chev = header.querySelector('.chevron');
-  body.classList.toggle('open');
-  chev.classList.toggle('open');
-}
-function delGame(id) {
-  if (!confirm('Delete this game?')) return;
-  games = games.filter(g=>g.id!==id);
-  save(); renderAll();
-}
-function addGame() {
+
+function renderAll(){renderStats();renderSeasons();renderAllGames();}
+function setAllFilter(f){allFilter=f;renderAllGames();}
+function setAllComp(c){allComp=c;renderAllGames();}
+function toggleSeason(h){const b=h.nextElementSibling.nextElementSibling;const c=h.querySelector('.chevron');b.classList.toggle('open');c.classList.toggle('open');}
+function delGame(id){if(!confirm('Delete this game?'))return;games=games.filter(g=>g.id!==id);save();renderAll();}
+function addGame(){
   const date=document.getElementById('fDate').value;
   const opp=document.getElementById('fOpp').value.trim();
   const gf=parseInt(document.getElementById('fGF').value)||0;
   const ga=parseInt(document.getElementById('fGA').value)||0;
   const loc=document.getElementById('fLoc').value;
   const comp=document.getElementById('fComp').value.trim()||'Other';
-  if (!date||!opp) { alert('Please enter a date and opponent.'); return; }
+  if(!date||!opp){alert('Please enter a date and opponent.');return;}
   const r=gf>ga?'W':gf<ga?'L':'T';
   games.push({id:Date.now(),date,opp,gf,ga,r,loc,comp});
-  save(); renderAll();
+  save();renderAll();
   document.getElementById('fDate').value='';
   document.getElementById('fOpp').value='';
   document.getElementById('fGF').value='0';
@@ -391,13 +496,12 @@ function addGame() {
   switchTab('seasons');
   alert('Game saved!');
 }
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i)=>{
-    t.classList.toggle('active',['seasons','all','add'][i]===name);
-  });
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['seasons','charts','all','add'][i]===name);});
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
-  if (name==='all') renderAllGames();
+  if(name==='all')renderAllGames();
+  if(name==='charts')renderCharts();
 }
 load();
 </script>
