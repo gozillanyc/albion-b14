@@ -290,9 +290,9 @@ const COMP_SEASON = {
   'North Atlantic Spring 2026':          '2025-26',
   'FC DELCO Players Cup 2026':           '2025-26',
 };
-const SEASON_ORDER = ['2023 Fall','2023-24','2024 Spring','2024 Summer','2024 Fall','2025 Spring','2025 Summer','2025 Fall','2025-26'];
+const SEASON_ORDER = ['2025-26','2025 Fall','2025 Summer','2025 Spring','2024 Fall','2024 Summer','2024 Spring','2023-24','2023 Fall'];
 
-let games=[], allFilter='All', allComp='All';
+let games=[], allFilter='All', allComp='All', seasonSort='newest';
 let chartInstances = {};
 
 function load(){
@@ -339,7 +339,12 @@ function getSeasonData(){
 function renderSeasons(){
   const bySeason=getSeasonData();
   const order=[...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))];
-  let html='';
+  const sortBtn = `<div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+    <button onclick="toggleSeasonSort()" style="padding:5px 14px;font-size:12px;border-radius:4px;border:1px solid rgba(201,168,76,0.4);background:rgba(201,168,76,0.1);color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif">
+      &#8597; ${seasonSort==='newest'?'Newest First':'Oldest First'}
+    </button>
+  </div>`;
+  let html=sortBtn;
   order.filter(s=>bySeason[s]).forEach(season=>{
     const comps=bySeason[season];
     const allG=Object.values(comps).flat();
@@ -409,7 +414,10 @@ function renderSeasons(){
 
 function renderCharts(){
   const bySeason=getSeasonData();
-  const order=[...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))].filter(s=>bySeason[s]);
+  const baseOrder = seasonSort==='newest'
+    ? [...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))]
+    : [...SEASON_ORDER,...Object.keys(bySeason).filter(s=>!SEASON_ORDER.includes(s))].reverse();
+  const order = baseOrder.filter(s=>bySeason[s]);
   const labels=order;
   const wins=[],losses=[],draws=[],gfArr=[],gaArr=[],avgFor=[],avgAgainst=[],winPcts=[];
   order.forEach(s=>{
@@ -503,6 +511,7 @@ function switchTab(name){
   if(name==='all')renderAllGames();
   if(name==='charts')renderCharts();
 }
+function toggleSeasonSort(){seasonSort=seasonSort==='newest'?'oldest':'newest';renderSeasons();}
 load();
 </script>
 </body>
