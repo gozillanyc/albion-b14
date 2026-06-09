@@ -109,23 +109,29 @@
   .chart-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold2);letter-spacing:0.06em;margin-bottom:12px}
   canvas{width:100%!important}
   .empty{text-align:center;padding:2.5rem;color:var(--muted);font-size:13px}
-  @media(max-width:560px){
-  .stat{width:64px;height:64px}
-  .stat-val{font-size:16px!important}
+  @media(max-width:600px){
+  .stat{width:62px;height:62px}
+  .stat-val{font-size:15px!important}
   .stat-lbl{font-size:9px!important}
   .stat-pct{font-size:9px!important}
-  .game-table{font-size:13px!important}
-  .game-table th:nth-child(1){width:26%}
+  .game-table{font-size:12px!important}
+  .game-table th:nth-child(1){width:22%}
   .game-table th:nth-child(2){width:38%}
   .game-table th:nth-child(3){width:18%;text-align:center}
-  .game-table th:nth-child(4){width:14%;text-align:center}
-  .game-table th:nth-child(5){width:4%}
-  .all-table{font-size:13px!important}
+  .game-table th:nth-child(4){width:18%;text-align:center}
+  .game-table th:nth-child(5){display:none}
+  .game-table td:nth-child(5){display:none}
+  .all-table{font-size:12px!important}
   .all-table th:nth-child(5){display:none}
   .all-table td:nth-child(5){display:none}
-  .comp-stats{flex-direction:column;gap:4px}
-  .season-meta{flex-direction:column;gap:3px}
+  .all-table th:nth-child(6){display:none}
+  .all-table td:nth-child(6){display:none}
+  .res-badge{font-size:11px!important;padding:2px 5px!important}
+  .comp-header{flex-direction:column;align-items:flex-start;gap:4px}
+  .comp-stats{flex-wrap:wrap;gap:6px}
+  .season-meta{flex-direction:column;gap:2px}
   .form-grid4{grid-template-columns:1fr 1fr}
+  .panel{padding:0.6rem}
     .stats-row{grid-template-columns:repeat(5,1fr)}
     .stats-row .stat:nth-child(n+6){display:none}
     .form-grid4{grid-template-columns:1fr 1fr}
