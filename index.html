@@ -109,14 +109,22 @@
   .chart-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold2);letter-spacing:0.06em;margin-bottom:12px}
   canvas{width:100%!important}
   .empty{text-align:center;padding:2.5rem;color:var(--muted);font-size:13px}
-  @media(max-width:600px){
-  .stat{width:62px;height:62px}
-  .stat-val{font-size:15px!important}
-  .stat-lbl{font-size:9px!important}
-  .stat-pct{font-size:9px!important}
+  @media(max-width:768px){
+  /* Compact header on all mobile */
+  .header{padding:0.6rem 0.8rem 0.5rem;position:relative}
+  .team-title{font-size:16px!important}
+  .team-sub{font-size:10px!important}
+  .header-top{margin-bottom:0.5rem;gap:8px}
+  /* Stat boxes: smaller, all on one row */
+  .stat{width:52px;height:52px}
+  .stat-val{font-size:14px!important}
+  .stat-lbl{font-size:8px!important}
+  .stat-pct{font-size:8px!important}
+  .stats-row{gap:4px}
+  /* Tables */
   .game-table{font-size:12px!important}
-  .game-table th:nth-child(1){width:22%}
-  .game-table th:nth-child(2){width:38%}
+  .game-table th:nth-child(1){width:24%}
+  .game-table th:nth-child(2){width:36%}
   .game-table th:nth-child(3){width:18%;text-align:center}
   .game-table th:nth-child(4){width:18%;text-align:center}
   .game-table th:nth-child(5){display:none}
@@ -126,12 +134,32 @@
   .all-table td:nth-child(5){display:none}
   .all-table th:nth-child(6){display:none}
   .all-table td:nth-child(6){display:none}
-  .res-badge{font-size:11px!important;padding:2px 5px!important}
-  .comp-header{flex-direction:column;align-items:flex-start;gap:4px}
-  .comp-stats{flex-wrap:wrap;gap:6px}
-  .season-meta{flex-direction:column;gap:2px}
-  .form-grid4{grid-template-columns:1fr 1fr}
+  .res-badge{font-size:10px!important;padding:2px 5px!important}
+  .date-cell{font-size:11px!important}
+  .opp-cell{font-size:12px!important}
+  .score{font-size:12px!important}
+  .loc-badge{display:none}
+  .comp-header{flex-direction:column;align-items:flex-start;gap:3px}
+  .comp-stats{flex-wrap:wrap;gap:5px;font-size:11px!important}
+  .season-meta{flex-direction:column;gap:2px;font-size:11px!important}
+  .season-name{font-size:15px!important}
+  .season-header{padding:8px 10px}
+  .comp-name{font-size:11px!important}
+  .game-table th{font-size:10px!important;padding:5px 6px}
+  .game-table td{padding:6px 6px}
+  .tab{padding:8px 12px;font-size:12px}
   .panel{padding:0.6rem}
+  .form-grid2{grid-template-columns:1fr}
+  .form-grid4{grid-template-columns:1fr 1fr}
+  .pct-bar{margin:4px 10px 8px}
+}
+@media(max-width:400px){
+  .stat{width:42px;height:42px}
+  .stat-val{font-size:12px!important}
+  .stat-lbl{font-size:7px!important}
+  .stat-pct{font-size:7px!important}
+  .game-table{font-size:11px!important}
+  .date-cell{font-size:10px!important}
     .stats-row{grid-template-columns:repeat(5,1fr)}
     .stats-row .stat:nth-child(n+6){display:none}
     .form-grid4{grid-template-columns:1fr 1fr}
