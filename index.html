@@ -445,7 +445,7 @@ function renderSeasons(){
       <div class="season-body">`;
 
     Object.keys(comps).sort().forEach(comp=>{
-      const gs=[...comps[comp]].sort((a,b)=>new Date(b.date)-new Date(a.date));
+      const gs=[...comps[comp]].sort((a,b)=>new Date(a.date)-new Date(b.date));
       const cs=calcStats(gs);
       const avgF=avg(cs.gf,cs.total),avgA=avg(cs.ga,cs.total);
       html+=`<div class="comp-section">
