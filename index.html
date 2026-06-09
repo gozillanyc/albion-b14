@@ -353,6 +353,7 @@ const COMP_MERGE = {
   'North Atlantic Spring 2026':           'North Atlantic 2025-26',
 };
 const SEASON_ORDER = ['2025-26','2024-25','2023-24'];
+const LEAGUE_COMPS = ['North Atlantic 2025-26','North Atlantic 2024-25','North Atlantic 2023-24'];
 
 let games=[], allFilter='All', allComp='All', seasonSort='newest';
 let chartInstances = {};
@@ -545,7 +546,28 @@ function renderAllGames(){
 function renderAll(){renderStats();renderSeasons();renderAllGames();}
 function setAllFilter(f){allFilter=f;renderAllGames();}
 function setAllComp(c){allComp=c;renderAllGames();}
-function toggleSeason(h){const b=h.nextElementSibling.nextElementSibling;const c=h.querySelector('.chevron');b.classList.toggle('open');c.classList.toggle('open');}
+function toggleSeason(h){
+  const bar=h.nextElementSibling;
+  const body=bar.nextElementSibling;
+  const chev=h.querySelector('.season-chevron');
+  const isOpen=body.style.display!=='none'&&body.style.display!=='';
+  body.style.display=isOpen?'none':'block';
+  if(chev) chev.style.transform=isOpen?'':'rotate(90deg)';
+}
+function toggleCat(h){
+  const body=h.nextElementSibling;
+  const chev=h.querySelector('.cat-chevron');
+  const isOpen=body.style.display!=='none'&&body.style.display!=='';
+  body.style.display=isOpen?'none':'block';
+  if(chev) chev.style.transform=isOpen?'':'rotate(90deg)';
+}
+function toggleComp(h){
+  const body=h.nextElementSibling;
+  const chev=h.querySelector('.chevron');
+  const isOpen=body.style.display!=='none'&&body.style.display!=='';
+  body.style.display=isOpen?'none':'block';
+  if(chev) chev.style.transform=isOpen?'':'rotate(90deg)';
+}
 function delGame(id){if(!confirm('Delete this game?'))return;games=games.filter(g=>g.id!==id);save();renderAll();}
 function addGame(){
   const date=document.getElementById('fDate').value;
