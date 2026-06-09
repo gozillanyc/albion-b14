@@ -319,28 +319,38 @@ const SEED = [
 const COMP_SEASON = {
   // Season 2023-24 (Sep 2023 - Jun 2024)
   'North Atlantic Fall 2023-Spring 2024':'2023-24',
+  'North Atlantic Spring 2024':          '2023-24',
   'SUSA Columbus Weekend 2023':          '2023-24',
   'EDP League Cups 2023-2024':           '2023-24',
   'SUSA Spring Kickoff 2024':            '2023-24',
-  'North Atlantic Spring 2024':          '2023-24',
   // Season 2024-25 (Sep 2024 - Jun 2025)
+  'North Atlantic Fall 2024':            '2024-25',
+  'North Atlantic Spring 2025':          '2024-25',
   'EDP Summer Classic 2024':             '2024-25',
   'SUSA Columbus Cup 2024':              '2024-25',
-  'North Atlantic Fall 2024':            '2024-25',
   'EDP Fall Classic 2024':               '2024-25',
   'SUSA Spring Kickoff 2025':            '2024-25',
-  'North Atlantic Spring 2025':          '2024-25',
   'East Meadow SC Memorial Day 2025':    '2024-25',
   'EDP Summer Classic 2025':             '2024-25',
   // Season 2025-26 (Sep 2025 - Jun 2026)
-  'SUSA Columbus Cup 2025':              '2025-26',
   'North Atlantic Fall 2025-Spring 2026':'2025-26',
+  'North Atlantic Spring 2026':          '2025-26',
+  'SUSA Columbus Cup 2025':              '2025-26',
   'Tri State Championship 2025-2026':    '2025-26',
   'Winter One-Day 5v5':                  '2025-26',
   'Socceroof Crown Heights':             '2025-26',
   'NYC FC 5v5 Coliseum Cup':             '2025-26',
-  'North Atlantic Spring 2026':          '2025-26',
   'FC DELCO Players Cup 2026':           '2025-26',
+};
+
+// Merge these competition pairs into single display names
+const COMP_MERGE = {
+  'North Atlantic Fall 2023-Spring 2024': 'North Atlantic 2023-24',
+  'North Atlantic Spring 2024':           'North Atlantic 2023-24',
+  'North Atlantic Fall 2024':             'North Atlantic 2024-25',
+  'North Atlantic Spring 2025':           'North Atlantic 2024-25',
+  'North Atlantic Fall 2025-Spring 2026': 'North Atlantic 2025-26',
+  'North Atlantic Spring 2026':           'North Atlantic 2025-26',
 };
 const SEASON_ORDER = ['2025-26','2024-25','2023-24'];
 
